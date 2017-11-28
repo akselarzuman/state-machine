@@ -1,6 +1,6 @@
 ﻿using StateMachine.Entities.Base;
 
-namespace StateMachine.Fremework.States
+namespace StateMachine.States
 {
     public class ExecutePaymentState : BaseState
     {
