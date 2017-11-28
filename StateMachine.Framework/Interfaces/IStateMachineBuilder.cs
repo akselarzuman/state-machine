@@ -1,6 +1,6 @@
-﻿using System.Xml.Linq;
+using System.Xml.Linq;
 
-namespace StateMachine.Fremework.Interfaces
+namespace StateMachine.Framework.Interfaces
 {
     public interface IStateMachineBuilder
     {

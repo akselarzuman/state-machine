@@ -1,4 +1,4 @@
-﻿using StateMachine.Fremework.Base;
+﻿using StateMachine.Entities.Base;
 
 namespace StateMachine.Fremework.States
 {

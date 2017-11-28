@@ -1,6 +1,6 @@
-﻿using StateMachine;
-using StateMachine.Fremework.Impls;
-using System.IO;
+﻿using System.IO;
+using StateMachine;
+using StateMachine.Framework.Impls;
 
 namespace ConsoleApp1
 {
@@ -14,7 +14,7 @@ namespace ConsoleApp1
             var xml = smb.LoadXml(path);
             var sm = smb.BuildStateMachine(xml);
 
-            Constant.States = sm.States;
+            //Constant.States = sm.States;
 
             var sme = new StateMachineExecutor();
             sme.Run(sm);

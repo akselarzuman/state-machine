@@ -1,4 +1,4 @@
-﻿using StateMachine.Fremework.Base;
+using StateMachine.Fremework.Interfaces;
 
 namespace StateMachine.Fremework.Interfaces
 {
