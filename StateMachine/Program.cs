@@ -1,6 +1,5 @@
 ﻿using System.IO;
-using StateMachine;
-using StateMachine.Framework.Impls;
+using StateMachine.Fremework.Impls;
 
 namespace ConsoleApp1
 {
@@ -8,16 +7,13 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.xml");
-
+            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.json");
             var smb = new StateMachineBuilder();
-            var xml = smb.LoadXml(path);
-            var sm = smb.BuildStateMachine(xml);
-
-            //Constant.States = sm.States;
+            var sm = smb.Load(path);
+            var machine = smb.BuildMachine(sm);
 
             var sme = new StateMachineExecutor();
-            sme.Run(sm);
+            sme.Execute(machine);
 
             System.Console.ReadLine();
         }

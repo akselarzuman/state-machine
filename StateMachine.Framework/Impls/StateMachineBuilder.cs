@@ -1,41 +1,62 @@
+﻿using System;
+using System.IO;
 using System.Linq;
-using System.Xml.Linq;
-using StateMachine.Entities;
-using StateMachine.Entities.Base;
-using StateMachine.Framework.Interfaces;
+using System.Reflection;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using StateMachine.Models;
+using StateMachine.Models.Base;
+using StateMachine.Fremework.Interfaces;
 
-namespace StateMachine.Framework.Impls
+namespace StateMachine.Fremework.Impls
 {
     public class StateMachineBuilder : IStateMachineBuilder
     {
-        public XDocument LoadXml(string path)
+        public Models.StateMachine Load(string path)
         {
-            return XDocument.Load(path);
+            using (var file = File.OpenText(path))
+            {
+                JsonSerializer jsonSerializer = new JsonSerializer();
+
+                return (Models.StateMachine)jsonSerializer.Deserialize(file, typeof(Models.StateMachine));
+            }
         }
 
-        public Entities.StateMachine BuildStateMachine(XDocument document)
+        public IList<BaseState> BuildMachine(Models.StateMachine stateMachine)
         {
-            var stateMachine = new Entities.StateMachine();
+            List<BaseState> machine = null;
 
-            var states = document.Element("StateMachine").Elements("State");
-
-            if (states.Any())
+            if (stateMachine != null && stateMachine.States != null && stateMachine.States.Any())
             {
-                stateMachine.States = new System.Collections.Generic.List<BaseState>();
+                machine = new List<BaseState>();
 
-                // foreach (var state in states)
-                // {
-                //     stateMachine.States.Add(new State
-                //     {
-                //         Namespace = state.Attribute("namespace")?.Value,
-                //         Name = state.Attribute("name")?.Value,
-                //         ErrorState = state.Attribute("errorState")?.Value,
-                //         NextState = state.Attribute("nextState")?.Value
-                //     });
-                // }
+                foreach (var state in stateMachine.States)
+                {
+                    BaseState baseState = CreateState(state);
+
+                    machine.Add(baseState);
+                }
             }
 
-            return stateMachine;
+            return machine;
+        }
+
+        private BaseState CreateState(State state)
+        {
+            string fullClassName = $"{state.Namespace}.{state.Name}";
+
+            string assemblyName = Assembly.GetEntryAssembly().GetName().Name;
+
+            Type type = Type.GetType($"{fullClassName},{assemblyName}");
+
+            BaseState baseState = (BaseState)Activator.CreateInstance(type);
+
+            baseState.Name = state.Name;
+            baseState.Namespace = state.Namespace;
+            baseState.NextState = state.NextState;
+            baseState.ErrorState = state.ErrorState;
+
+            return baseState;
         }
     }
 }

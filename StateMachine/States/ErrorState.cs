@@ -1,12 +1,13 @@
-using StateMachine.Entities.Base;
+﻿using System;
+using StateMachine.Models.Base;
 
-namespace StateMachine.States
+namespace StateMachine.Fremework.States
 {
     public class ErrorState : BaseState
     {
         public override void Execute()
         {
-            System.Console.WriteLine("Error state executed.");
+            Console.WriteLine("An error happened...");
         }
     }
 }

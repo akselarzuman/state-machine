@@ -1,6 +1,6 @@
-﻿using StateMachine.Entities.Base;
+﻿using StateMachine.Models.Base;
 
-namespace StateMachine.States
+namespace StateMachine.Fremework.States
 {
     public class ValidatePaymentState : BaseState
     {

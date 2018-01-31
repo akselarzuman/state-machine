@@ -1,10 +1,11 @@
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
+using StateMachine.Models.Base;
 
-namespace StateMachine.Framework.Interfaces
+namespace StateMachine.Fremework.Interfaces
 {
     public interface IStateMachineBuilder
     {
-        XDocument LoadXml(string path);
-        Entities.StateMachine BuildStateMachine(XDocument document);
+        Models.StateMachine Load(string path);
+        IList<BaseState> BuildMachine(Models.StateMachine stateMachine);
     }
 }

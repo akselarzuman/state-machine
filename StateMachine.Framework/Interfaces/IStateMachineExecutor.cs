@@ -1,9 +1,10 @@
-using StateMachine.Fremework.Interfaces;
+﻿using System.Collections.Generic;
+using StateMachine.Models.Base;
 
 namespace StateMachine.Fremework.Interfaces
 {
     public interface IStateMachineExecutor
     {
-        void Run(Entities.StateMachine stateMachine);
+        void Execute(IList<BaseState> machine);
     }
 }

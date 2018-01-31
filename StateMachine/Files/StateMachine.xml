@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<StateMachine>
-  <State namespace="StateMachine.States" name="InitialState" nextState="ValidatePaymentState" errorState="ErrorState" />
-  <State namespace="StateMachine.States" name="ValidatePaymentState" nextState="ExecutePaymentState" errorState="ErrorState" />
-  <State namespace="StateMachine.States" name="ExecutePaymentState" nextState="FinalState" errorState="FinalState" />
-  <State namespace="StateMachine.States" name="ErrorState" nextState="FinalState"  />
-  <State namespace="StateMachine.States" name="FinalState" />
-</StateMachine>
