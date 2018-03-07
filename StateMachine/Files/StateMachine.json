@@ -3,25 +3,53 @@
     {
       "Namespace": "StateMachine.Fremework.States",
       "Name": "InitialState",
-      "NextState": "ValidatePaymentState",
+      "NextState": [
+        {
+          "Condition": "Condition1",
+          "State": "ValidatePaymentState"
+        },
+        {
+          "Condition": "Condition2",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "ErrorState"
     },
     {
       "Namespace": "StateMachine.Fremework.States",
       "Name": "ValidatePaymentState",
-      "NextState": "ExecutePaymentState",
+      "NextState": [
+        {
+          "Condition": "Condition1",
+          "State": "ExecutePaymentState"
+        },
+        {
+          "Condition": "Condition2",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "ErrorState"
     },
     {
       "Namespace": "StateMachine.Fremework.States",
       "Name": "ExecutePaymentState",
-      "NextState": "FinalState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "FinalState"
     },
     {
       "Namespace": "StateMachine.Fremework.States",
       "Name": "ErrorState",
-      "NextState": "FinalState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": null
     },
     {

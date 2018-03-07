@@ -18,7 +18,7 @@ namespace StateMachine.Fremework.Impls
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
 
-                return (Models.StateMachine)jsonSerializer.Deserialize(file, typeof(Models.StateMachine));
+                return (Models.StateMachine) jsonSerializer.Deserialize(file, typeof(Models.StateMachine));
             }
         }
 
@@ -26,7 +26,7 @@ namespace StateMachine.Fremework.Impls
         {
             List<BaseState> machine = null;
 
-            if (stateMachine != null && stateMachine.States != null && stateMachine.States.Any())
+            if (stateMachine?.States != null && stateMachine.States.Any())
             {
                 machine = new List<BaseState>();
 
@@ -49,11 +49,11 @@ namespace StateMachine.Fremework.Impls
 
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
-            BaseState baseState = (BaseState)Activator.CreateInstance(type);
+            BaseState baseState = (BaseState) Activator.CreateInstance(type);
 
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;
-            baseState.NextState = state.NextState;
+            baseState.NextState = state.NextState?[0]?.State;
             baseState.ErrorState = state.ErrorState;
 
             return baseState;

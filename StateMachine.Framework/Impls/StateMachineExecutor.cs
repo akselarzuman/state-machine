@@ -22,10 +22,7 @@ namespace StateMachine.Fremework.Impls
                     state = machine.First(m => m.Name == nextStateName);
                 }
 
-                if (state != null)
-                {
-                    state.Execute();
-                }
+                state?.Execute();
             }
         }
     }
