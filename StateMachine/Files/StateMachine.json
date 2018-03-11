@@ -1,7 +1,7 @@
 ﻿{
   "States": [
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "InitialState",
       "NextState": [
         {
@@ -16,7 +16,7 @@
       "ErrorState": "ErrorState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ValidatePaymentState",
       "NextState": [
         {
@@ -31,7 +31,7 @@
       "ErrorState": "ErrorState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ExecutePaymentState",
       "NextState": [
         {
@@ -42,7 +42,7 @@
       "ErrorState": "FinalState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ErrorState",
       "NextState": [
         {
@@ -53,7 +53,7 @@
       "ErrorState": null
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "FinalState",
       "NextState": null,
       "ErrorState": null

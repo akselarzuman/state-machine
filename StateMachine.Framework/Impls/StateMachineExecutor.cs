@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using StateMachine.Framework.Interfaces;
 using StateMachine.Models.Base;
-using StateMachine.Fremework.Interfaces;
 
-namespace StateMachine.Fremework.Impls
+namespace StateMachine.Framework.Impls
 {
     public class StateMachineExecutor : IStateMachineExecutor
     {

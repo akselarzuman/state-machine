@@ -1,21 +1,21 @@
-﻿using System.IO;
-using StateMachine.Fremework.Impls;
+﻿using StateMachine.TestClient.DI;
+using StateMachine.TestClient.Interfaces;
 
-namespace ConsoleApp1
+namespace StateMachine.TestClient
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.json");
-            var smb = new StateMachineBuilder();
-            var sm = smb.Load(path);
-            var machine = smb.BuildMachine(sm);
+            DependencyFactory.Instance.RegisterDependencies();
 
-            var sme = new StateMachineExecutor();
-            sme.Execute(machine);
+            IWorker worker = DependencyFactory.Instance.Resolve<IWorker>();
 
-            System.Console.ReadLine();
+            var stateMachine = worker.LoadStateMachine();
+
+            var machine = worker.BuildStateMachine(stateMachine);
+
+            worker.Execute(machine);
         }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using StateMachine.Framework.Interfaces;
 using StateMachine.Models;
 using StateMachine.Models.Base;
-using StateMachine.Fremework.Interfaces;
 
-namespace StateMachine.Fremework.Impls
+namespace StateMachine.Framework.Impls
 {
     public class StateMachineBuilder : IStateMachineBuilder
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using StateMachine.Models.Base;
 
-namespace StateMachine.Fremework.States
+namespace StateMachine.TestClient.Impls.States
 {
     public class ErrorState : BaseState
     {

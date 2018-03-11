@@ -1,6 +1,6 @@
 ﻿using StateMachine.Models.Base;
 
-namespace StateMachine.Fremework.States
+namespace StateMachine.TestClient.Impls.States
 {
     public class ValidatePaymentState : BaseState
     {
