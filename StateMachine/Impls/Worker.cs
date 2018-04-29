@@ -17,14 +17,14 @@ namespace StateMachine.TestClient.Impls
             _stateMachineExecutor = stateMachineExecutor;
         }
 
-        public Models.StateMachine LoadStateMachine()
+        public Models.StateMachineModel LoadStateMachine()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.json");
             
             return _stateMachineBuilder.Load(path);
         }
 
-        public IList<BaseState> BuildStateMachine(Models.StateMachine stateMachine)
+        public IList<BaseState> BuildStateMachine(Models.StateMachineModel stateMachine)
         {
             return _stateMachineBuilder.BuildMachine(stateMachine);
         }

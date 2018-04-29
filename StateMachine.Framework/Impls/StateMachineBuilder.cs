@@ -19,17 +19,17 @@ namespace StateMachine.Framework.Impls
             assemblyName = Assembly.GetEntryAssembly().GetName().Name; 
         }
 
-        public Models.StateMachine Load(string path)
+        public StateMachineModel Load(string path)
         {
             using (var file = File.OpenText(path))
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
 
-                return (Models.StateMachine) jsonSerializer.Deserialize(file, typeof(Models.StateMachine));
+                return (StateMachineModel) jsonSerializer.Deserialize(file, typeof(StateMachineModel));
             }
         }
 
-        public IList<BaseState> BuildMachine(Models.StateMachine stateMachine)
+        public IList<BaseState> BuildMachine(StateMachineModel stateMachine)
         {
             List<BaseState> machine = null;
 
@@ -48,7 +48,7 @@ namespace StateMachine.Framework.Impls
             return machine;
         }
 
-        private BaseState CreateState(State state)
+        private BaseState CreateState(StateModel state)
         {
             string fullClassName = $"{state.Namespace}.{state.Name}";
             Type type = Type.GetType($"{fullClassName},{assemblyName}");

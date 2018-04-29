@@ -16,9 +16,7 @@ namespace StateMachine.Framework.Impls
                 while (state != null && !string.IsNullOrEmpty(state.NextState))
                 {
                     state.Execute();
-
                     string nextStateName = state.NextState;
-
                     state = machine.First(m => m.Name == nextStateName);
                 }
 

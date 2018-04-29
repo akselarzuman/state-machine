@@ -1,6 +1,6 @@
 ﻿namespace StateMachine.Models
 {
-    public class State
+    public class StateModel
     {
         public string Namespace { get; set; }
         public string Name { get; set; }

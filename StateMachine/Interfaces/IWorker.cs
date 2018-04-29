@@ -5,8 +5,8 @@ namespace StateMachine.TestClient.Interfaces
 {
     public interface IWorker
     {
-        Models.StateMachine LoadStateMachine();
-        IList<BaseState> BuildStateMachine(Models.StateMachine stateMachine);
+        Models.StateMachineModel LoadStateMachine();
+        IList<BaseState> BuildStateMachine(Models.StateMachineModel stateMachine);
         void Execute(IList<BaseState> machine);
     }
 }
