@@ -16,6 +16,8 @@ namespace StateMachine.TestClient
             var machine = worker.BuildStateMachine(stateMachine);
 
             worker.Execute(machine);
+
+            System.Console.ReadLine();
         }
     }
 }

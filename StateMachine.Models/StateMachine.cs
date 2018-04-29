@@ -1,7 +1,9 @@
-﻿namespace StateMachine.Models
+﻿using System.Collections.Generic;
+
+namespace StateMachine.Models
 {
     public class StateMachine
     {
-        public System.Collections.Generic.List<State> States { get; set; }
+        public IList<State> States { get; set; }
     }
 }

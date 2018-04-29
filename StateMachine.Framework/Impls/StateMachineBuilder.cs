@@ -12,6 +12,13 @@ namespace StateMachine.Framework.Impls
 {
     public class StateMachineBuilder : IStateMachineBuilder
     {
+        private string assemblyName;
+
+        public StateMachineBuilder()
+        {
+            assemblyName = Assembly.GetEntryAssembly().GetName().Name; 
+        }
+
         public Models.StateMachine Load(string path)
         {
             using (var file = File.OpenText(path))
@@ -44,13 +51,9 @@ namespace StateMachine.Framework.Impls
         private BaseState CreateState(State state)
         {
             string fullClassName = $"{state.Namespace}.{state.Name}";
-
-            string assemblyName = Assembly.GetEntryAssembly().GetName().Name;
-
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
             BaseState baseState = (BaseState) Activator.CreateInstance(type);
-
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;
             baseState.NextState = state.NextState?[0]?.State;
