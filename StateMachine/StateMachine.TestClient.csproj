@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StateMachine.Framework\StateMachine.Framework.csproj" />
+    <ProjectReference Include="..\StateMachine.Framework\StateMachine.Core.csproj" />
     <ProjectReference Include="..\StateMachine.Models\StateMachine.Models.csproj" />
   </ItemGroup>
   <ItemGroup>

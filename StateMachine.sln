@@ -4,7 +4,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StateMachine.TestClient", "StateMachine\StateMachine.TestClient.csproj", "{7DE6BCAA-B99D-4DDF-8524-42D4744F0845}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StateMachine.Framework", "StateMachine.Framework\StateMachine.Framework.csproj", "{73DB2F72-C9FC-443D-8381-897EC042D156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StateMachine.Core", "StateMachine.Framework\StateMachine.Core.csproj", "{73DB2F72-C9FC-443D-8381-897EC042D156}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StateMachine.Models", "StateMachine.Models\StateMachine.Models.csproj", "{F8F1C38A-7C37-4C4E-9A4D-C13FCCC29FD1}"
 EndProject
