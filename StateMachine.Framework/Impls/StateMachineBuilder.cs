@@ -22,34 +22,23 @@ namespace StateMachine.Framework.Impls
             }
         }
 
-        public IList<BaseState> BuildMachine(Models.StateMachine stateMachine)
+        public IEnumerable<BaseState> BuildMachine(Models.StateMachine stateMachine)
         {
-            List<BaseState> machine = null;
-
-            if (stateMachine?.States != null && stateMachine.States.Any())
+            if (stateMachine?.States == null || !stateMachine.States.Any())
             {
-                machine = new List<BaseState>();
-
-                foreach (var state in stateMachine.States)
-                {
-                    BaseState baseState = CreateState(state);
-
-                    machine.Add(baseState);
-                }
+                return null;
             }
 
-            return machine;
+            return stateMachine.States.Select(CreateState).ToList();
         }
 
         private BaseState CreateState(State state)
         {
             string fullClassName = $"{state.Namespace}.{state.Name}";
-
             string assemblyName = Assembly.GetEntryAssembly().GetName().Name;
-
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
-            BaseState baseState = (BaseState) Activator.CreateInstance(type);
+            var baseState = (BaseState) Activator.CreateInstance(type);
 
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;

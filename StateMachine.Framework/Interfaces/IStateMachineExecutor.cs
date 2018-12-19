@@ -5,6 +5,6 @@ namespace StateMachine.Framework.Interfaces
 {
     public interface IStateMachineExecutor
     {
-        void Execute(IList<BaseState> machine);
+        void Execute(IEnumerable<BaseState> machine);
     }
 }

@@ -24,12 +24,12 @@ namespace StateMachine.TestClient.Impls
             return _stateMachineBuilder.Load(path);
         }
 
-        public IList<BaseState> BuildStateMachine(Models.StateMachine stateMachine)
+        public IEnumerable<BaseState> BuildStateMachine(Models.StateMachine stateMachine)
         {
             return _stateMachineBuilder.BuildMachine(stateMachine);
         }
 
-        public void Execute(IList<BaseState> machine)
+        public void Execute(IEnumerable<BaseState> machine)
         {
             _stateMachineExecutor.Execute(machine);
         }
