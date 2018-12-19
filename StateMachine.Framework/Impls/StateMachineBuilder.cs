@@ -14,6 +14,11 @@ namespace StateMachine.Framework.Impls
     {
         public Models.StateMachine Load(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+            
             using (var file = File.OpenText(path))
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
