@@ -9,10 +9,12 @@ namespace StateMachine.TestClient.DI
     public class DependencyFactory
     {
         public static readonly DependencyFactory Instance = new DependencyFactory();
-        
+
         private ServiceProvider _serviceProvider;
 
-        protected DependencyFactory(){}
+        protected DependencyFactory()
+        {
+        }
 
         public void RegisterDependencies()
         {
@@ -22,7 +24,7 @@ namespace StateMachine.TestClient.DI
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
         }
-        
+
         public T Resolve<T>()
         {
             return _serviceProvider.GetService<T>();
@@ -30,10 +32,10 @@ namespace StateMachine.TestClient.DI
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IStateMachineBuilder,StateMachineBuilder>();
-            serviceCollection.AddTransient<IStateMachineExecutor, StateMachineExecutor>();
-
-            serviceCollection.AddTransient<IWorker, Worker>();
+            serviceCollection
+                .AddTransient<IStateMachineBuilder, StateMachineBuilder>()
+                .AddTransient<IStateMachineExecutor, StateMachineExecutor>()
+                .AddTransient<IWorker, Worker>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace StateMachine.Framework.Interfaces
     public interface IStateMachineBuilder
     {
         StateMachineModel Load(string path);
-
-        IList<BaseState> BuildMachine(StateMachineModel stateMachine);
+        
+        IEnumerable<BaseState> BuildMachine(StateMachineModel stateMachine);
     }
 }

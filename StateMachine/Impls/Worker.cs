@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using StateMachine.Framework.Interfaces;
+using StateMachine.Models;
 using StateMachine.Models.Base;
 using StateMachine.TestClient.Interfaces;
 
@@ -17,19 +18,19 @@ namespace StateMachine.TestClient.Impls
             _stateMachineExecutor = stateMachineExecutor;
         }
 
-        public Models.StateMachineModel LoadStateMachine()
+        public StateMachineModel LoadStateMachine()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.json");
             
             return _stateMachineBuilder.Load(path);
         }
 
-        public IList<BaseState> BuildStateMachine(Models.StateMachineModel stateMachine)
+        public IEnumerable<BaseState> BuildStateMachine(StateMachineModel stateMachine)
         {
             return _stateMachineBuilder.BuildMachine(stateMachine);
         }
 
-        public void Execute(IList<BaseState> machine)
+        public void Execute(IEnumerable<BaseState> machine)
         {
             _stateMachineExecutor.Execute(machine);
         }

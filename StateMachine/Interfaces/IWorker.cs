@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
+using StateMachine.Models;
 using StateMachine.Models.Base;
 
 namespace StateMachine.TestClient.Interfaces
 {
     public interface IWorker
     {
-        Models.StateMachineModel LoadStateMachine();
-        IList<BaseState> BuildStateMachine(Models.StateMachineModel stateMachine);
-        void Execute(IList<BaseState> machine);
+        StateMachineModel LoadStateMachine();
+        
+        IEnumerable<BaseState> BuildStateMachine(StateMachineModel stateMachine);
+        
+        void Execute(IEnumerable<BaseState> machine);
     }
 }

@@ -8,7 +8,7 @@ namespace StateMachine.TestClient
         static void Main(string[] args)
         {
             DependencyFactory.Instance.RegisterDependencies();
-            IWorker worker = DependencyFactory.Instance.Resolve<IWorker>();
+            var worker = DependencyFactory.Instance.Resolve<IWorker>();
             var stateMachine = worker.LoadStateMachine();
             var machine = worker.BuildStateMachine(stateMachine);
             worker.Execute(machine);
