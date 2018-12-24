@@ -52,7 +52,7 @@ namespace StateMachine.Core.Impls
 
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;
-            baseState.NextState = state.NextState?[0]?.State;
+            baseState.NextState = state.NextState;
             baseState.ErrorState = state.ErrorState;
 
             return baseState;
@@ -60,12 +60,15 @@ namespace StateMachine.Core.Impls
 
         public void AddToContext(Type type)
         {
-            throw new NotImplementedException();
+            StateMachineContext.Context.Imports.AddType(type, type.Name);
         }
 
         public void AddToContext(IEnumerable<Type> types)
         {
-            throw new NotImplementedException();
+            foreach (var type in types)
+            {
+                AddToContext(type);
+            }
         }
     }
 }

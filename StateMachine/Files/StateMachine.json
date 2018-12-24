@@ -5,11 +5,11 @@
       "Name": "InitialState",
       "NextState": [
         {
-          "Condition": "Condition1",
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"aksel@test.com\")",
           "State": "ValidatePaymentState"
         },
         {
-          "Condition": "Condition2",
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"test@test.com\")",
           "State": "FinalState"
         }
       ],
@@ -20,11 +20,11 @@
       "Name": "ValidatePaymentState",
       "NextState": [
         {
-          "Condition": "Condition1",
+          "Condition": "True",
           "State": "ExecutePaymentState"
         },
         {
-          "Condition": "Condition2",
+          "Condition": "False",
           "State": "FinalState"
         }
       ],
