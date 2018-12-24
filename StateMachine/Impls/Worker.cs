@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using StateMachine.Framework.Interfaces;
-using StateMachine.Models;
-using StateMachine.Models.Base;
+using StateMachine.Core.Interfaces;
+using StateMachine.Core.Models;
 using StateMachine.TestClient.Interfaces;
 
 namespace StateMachine.TestClient.Impls

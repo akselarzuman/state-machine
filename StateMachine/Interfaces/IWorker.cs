@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using StateMachine.Models;
-using StateMachine.Models.Base;
+using StateMachine.Core.Models;
 
 namespace StateMachine.TestClient.Interfaces
 {

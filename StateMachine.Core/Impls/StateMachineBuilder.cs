@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
-using StateMachine.Framework.Interfaces;
-using StateMachine.Models;
-using StateMachine.Models.Base;
+using StateMachine.Core.Interfaces;
+using StateMachine.Core.Models;
 
-namespace StateMachine.Framework.Impls
+namespace StateMachine.Core.Impls
 {
     public class StateMachineBuilder : IStateMachineBuilder
     {
@@ -16,7 +15,7 @@ namespace StateMachine.Framework.Impls
 
         public StateMachineBuilder()
         {
-            assemblyName = Assembly.GetEntryAssembly().GetName().Name; 
+            assemblyName = Assembly.GetEntryAssembly().GetName().Name;
         }
 
         public StateMachineModel Load(string path)
@@ -25,12 +24,12 @@ namespace StateMachine.Framework.Impls
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            
+
             using (var file = File.OpenText(path))
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
 
-                return (StateMachineModel) jsonSerializer.Deserialize(file, typeof(StateMachineModel));
+                return (StateMachineModel)jsonSerializer.Deserialize(file, typeof(StateMachineModel));
             }
         }
 
@@ -49,7 +48,7 @@ namespace StateMachine.Framework.Impls
             string fullClassName = $"{state.Namespace}.{state.Name}";
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
-            var baseState = (BaseState) Activator.CreateInstance(type);
+            var baseState = (BaseState)Activator.CreateInstance(type);
 
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;
@@ -57,6 +56,16 @@ namespace StateMachine.Framework.Impls
             baseState.ErrorState = state.ErrorState;
 
             return baseState;
+        }
+
+        public void AddToContext(Type type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddToContext(IEnumerable<Type> types)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using StateMachine.Framework.Impls;
-using StateMachine.Framework.Interfaces;
+using StateMachine.Core.Impls;
+using StateMachine.Core.Interfaces;
 using StateMachine.TestClient.Impls;
 using StateMachine.TestClient.Interfaces;
 
