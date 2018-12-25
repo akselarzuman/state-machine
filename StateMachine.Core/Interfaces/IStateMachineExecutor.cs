@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using StateMachine.Models.Base;
+using StateMachine.Core.Models;
 
-namespace StateMachine.Framework.Interfaces
+namespace StateMachine.Core.Interfaces
 {
     public interface IStateMachineExecutor
     {

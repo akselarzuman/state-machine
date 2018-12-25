@@ -1,4 +1,4 @@
-﻿using StateMachine.Models.Base;
+﻿using StateMachine.Core.Models;
 
 namespace StateMachine.TestClient.Impls.States
 {

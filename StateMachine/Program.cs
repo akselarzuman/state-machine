@@ -1,5 +1,6 @@
 ﻿using StateMachine.TestClient.DI;
 using StateMachine.TestClient.Interfaces;
+using StateMachine.TestClient.Models;
 
 namespace StateMachine.TestClient
 {
@@ -11,6 +12,7 @@ namespace StateMachine.TestClient
             var worker = DependencyFactory.Instance.Resolve<IWorker>();
             var stateMachine = worker.LoadStateMachine();
             var machine = worker.BuildStateMachine(stateMachine);
+            worker.AddToContext(typeof(TestClientModel));
             worker.Execute(machine);
 
             System.Console.ReadLine();

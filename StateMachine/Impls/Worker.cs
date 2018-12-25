@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using StateMachine.Framework.Interfaces;
-using StateMachine.Models;
-using StateMachine.Models.Base;
+using StateMachine.Core.Interfaces;
+using StateMachine.Core.Models;
 using StateMachine.TestClient.Interfaces;
 
 namespace StateMachine.TestClient.Impls
@@ -28,6 +28,11 @@ namespace StateMachine.TestClient.Impls
         public IEnumerable<BaseState> BuildStateMachine(StateMachineModel stateMachine)
         {
             return _stateMachineBuilder.BuildMachine(stateMachine);
+        }
+
+        public void AddToContext(Type type)
+        {
+            _stateMachineBuilder.AddToContext(type);
         }
 
         public void Execute(IEnumerable<BaseState> machine)
