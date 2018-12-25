@@ -1,4 +1,4 @@
-﻿namespace StateMachine.Models.Base
+﻿namespace StateMachine.Core.Models
 {
     public abstract class BaseState
     {
@@ -6,7 +6,7 @@
         
         public string Name { get; set; }
         
-        public string NextState { get; set; }
+        public NextState[] NextState { get; set; }
         
         public string ErrorState { get; set; }
         

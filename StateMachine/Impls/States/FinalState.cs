@@ -1,6 +1,6 @@
-﻿using StateMachine.Models.Base;
+﻿using StateMachine.Core.Models;
 
-namespace StateMachine.Fremework.States
+namespace StateMachine.TestClient.Impls.States
 {
     public class FinalState : BaseState
     {

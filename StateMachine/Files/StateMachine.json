@@ -1,31 +1,59 @@
 ﻿{
   "States": [
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "InitialState",
-      "NextState": "ValidatePaymentState",
+      "NextState": [
+        {
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"aksel@test.com\")",
+          "State": "ValidatePaymentState"
+        },
+        {
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"test@test.com\")",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "ErrorState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ValidatePaymentState",
-      "NextState": "ExecutePaymentState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "ExecutePaymentState"
+        },
+        {
+          "Condition": "False",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "ErrorState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ExecutePaymentState",
-      "NextState": "FinalState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": "FinalState"
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "ErrorState",
-      "NextState": "FinalState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
       "ErrorState": null
     },
     {
-      "Namespace": "StateMachine.Fremework.States",
+      "Namespace": "StateMachine.TestClient.Impls.States",
       "Name": "FinalState",
       "NextState": null,
       "ErrorState": null
