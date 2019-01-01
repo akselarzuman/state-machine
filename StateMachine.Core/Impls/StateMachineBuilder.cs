@@ -11,7 +11,7 @@ namespace StateMachine.Core.Impls
 {
     public class StateMachineBuilder : IStateMachineBuilder
     {
-        private string assemblyName;
+        private readonly string assemblyName;
 
         public StateMachineBuilder()
         {
@@ -60,11 +60,21 @@ namespace StateMachine.Core.Impls
 
         public void AddToContext(Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             StateMachineContext.Context.Imports.AddType(type, type.Name);
         }
 
         public void AddToContext(IEnumerable<Type> types)
         {
+            if (types == null || !types.Any())
+            {
+                throw new ArgumentNullException(nameof(types));
+            }
+
             foreach (var type in types)
             {
                 AddToContext(type);
