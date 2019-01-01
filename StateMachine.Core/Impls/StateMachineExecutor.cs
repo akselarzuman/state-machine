@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using StateMachine.Core.Interfaces;
 using StateMachine.Core.Models;
@@ -7,14 +8,14 @@ namespace StateMachine.Core.Impls
 {
     public class StateMachineExecutor : IStateMachineExecutor
     {
-        public void Execute(IEnumerable<BaseState> machine)
+        public void Execute(IEnumerable<BaseState> states)
         {
-            if (machine == null || !machine.Any())
+            if (states == null || !states.Any())
             {
-                return;
+                throw new ArgumentNullException(nameof(states));
             }
 
-            var state = machine.First();
+            var state = states.First();
 
             while (state != null && state.NextState != null)
             {
@@ -33,7 +34,7 @@ namespace StateMachine.Core.Impls
 
                 state = string.IsNullOrEmpty(nextStateName)
                             ? null
-                            : machine.First(m => m.Name == nextStateName);
+                            : states.First(m => m.Name == nextStateName);
             }
 
             state?.Execute();
