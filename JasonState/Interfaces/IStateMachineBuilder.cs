@@ -6,9 +6,7 @@ namespace JasonState.Interfaces
 {
     public interface IStateMachineBuilder
     {
-        StateMachineModel Load(string path);
-
-        IEnumerable<BaseState> BuildMachine(StateMachineModel stateMachine);
+        IEnumerable<BaseState> BuildMachine(string path);
 
         void AddToContext(Type type);
 

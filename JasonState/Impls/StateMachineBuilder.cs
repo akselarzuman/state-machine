@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
 using JasonState.Interfaces;
 using JasonState.Models;
+using Newtonsoft.Json;
 
 namespace JasonState.Impls
 {
@@ -18,49 +18,21 @@ namespace JasonState.Impls
             assemblyName = Assembly.GetEntryAssembly().GetName().Name;
         }
 
-        public StateMachineModel Load(string path)
+        public IEnumerable<BaseState> BuildMachine(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
-            using (var file = File.OpenText(path))
-            {
-                JsonSerializer jsonSerializer = new JsonSerializer();
+            StateMachineModel stateMachine = Load(path);
 
-                return (StateMachineModel)jsonSerializer.Deserialize(file, typeof(StateMachineModel));
-            }
-        }
-
-        public IEnumerable<BaseState> BuildMachine(StateMachineModel stateMachine)
-        {
             if (stateMachine?.States == null || !stateMachine.States.Any())
             {
                 return null;
             }
 
             return stateMachine.States.Select(CreateState).ToList();
-        }
-
-        private BaseState CreateState(StateModel state)
-        {
-            if (state == null)
-            {
-                throw new ArgumentNullException(nameof(state));
-            }
-
-            string fullClassName = $"{state.Namespace}.{state.Name}";
-            Type type = Type.GetType($"{fullClassName},{assemblyName}");
-
-            var baseState = (BaseState)Activator.CreateInstance(type);
-
-            baseState.Name = state.Name;
-            baseState.Namespace = state.Namespace;
-            baseState.NextState = state.NextState;
-            baseState.ErrorState = state.ErrorState;
-
-            return baseState;
         }
 
         public void AddToContext(Type type)
@@ -84,6 +56,41 @@ namespace JasonState.Impls
             {
                 AddToContext(type);
             }
+        }
+
+        private StateMachineModel Load(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            using (var file = File.OpenText(path))
+            {
+                JsonSerializer jsonSerializer = new JsonSerializer();
+
+                return (StateMachineModel)jsonSerializer.Deserialize(file, typeof(StateMachineModel));
+            }
+        }
+
+        private BaseState CreateState(StateModel state)
+        {
+            if (state == null)
+            {
+                throw new ArgumentNullException(nameof(state));
+            }
+
+            string fullClassName = $"{state.Namespace}.{state.Name}";
+            Type type = Type.GetType($"{fullClassName},{assemblyName}");
+
+            var baseState = (BaseState)Activator.CreateInstance(type);
+
+            baseState.Name = state.Name;
+            baseState.Namespace = state.Namespace;
+            baseState.NextState = state.NextState;
+            baseState.ErrorState = state.ErrorState;
+
+            return baseState;
         }
     }
 }

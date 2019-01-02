@@ -10,8 +10,7 @@ namespace TestClient
         {
             DependencyFactory.Instance.RegisterDependencies();
             var worker = DependencyFactory.Instance.Resolve<IWorker>();
-            var stateMachine = worker.LoadStateMachine();
-            var machine = worker.BuildStateMachine(stateMachine);
+            var machine = worker.BuildStateMachine();
             worker.AddToContext(typeof(TestClientModel));
             worker.Execute(machine);
 

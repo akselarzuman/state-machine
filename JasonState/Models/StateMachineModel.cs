@@ -2,7 +2,7 @@
 
 namespace JasonState.Models
 {
-    public class StateMachineModel
+    internal class StateMachineModel
     {
         public IEnumerable<StateModel> States { get; set; }
     }

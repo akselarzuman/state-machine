@@ -1,6 +1,6 @@
 ﻿namespace JasonState.Models
 {
-    public class StateModel
+    internal class StateModel
     {
         public string Namespace { get; set; }
 
@@ -9,12 +9,5 @@
         public NextState[] NextState { get; set; }
 
         public string ErrorState { get; set; }
-    }
-
-    public class NextState
-    {
-        public string Condition { get; set; }
-
-        public string State { get; set; }
     }
 }

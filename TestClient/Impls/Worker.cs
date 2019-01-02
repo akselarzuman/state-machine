@@ -18,16 +18,10 @@ namespace TestClient.Impls
             _stateMachineExecutor = stateMachineExecutor;
         }
 
-        public StateMachineModel LoadStateMachine()
+        public IEnumerable<BaseState> BuildStateMachine()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Files/StateMachine.json");
-            
-            return _stateMachineBuilder.Load(path);
-        }
-
-        public IEnumerable<BaseState> BuildStateMachine(StateMachineModel stateMachine)
-        {
-            return _stateMachineBuilder.BuildMachine(stateMachine);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/StateMachine.json");
+            return _stateMachineBuilder.BuildMachine(path);
         }
 
         public void AddToContext(Type type)

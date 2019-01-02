@@ -5,10 +5,8 @@ using JasonState.Models;
 namespace TestClient.Interfaces
 {
     public interface IWorker
-    {
-        StateMachineModel LoadStateMachine();
-        
-        IEnumerable<BaseState> BuildStateMachine(StateMachineModel stateMachine);
+    {        
+        IEnumerable<BaseState> BuildStateMachine();
 
         void AddToContext(Type type);
 
