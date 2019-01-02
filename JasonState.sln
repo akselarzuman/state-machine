@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JasonState", "JasonState\Ja
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{AE6351F3-EDEF-4EED-99D8-3E3E79E02F80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JasonState.Extension", "JasonState.Extension\JasonState.Extension.csproj", "{95F5CA3D-EB1E-40C8-8891-74AA6DA1011C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{AE6351F3-EDEF-4EED-99D8-3E3E79E02F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6351F3-EDEF-4EED-99D8-3E3E79E02F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6351F3-EDEF-4EED-99D8-3E3E79E02F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95F5CA3D-EB1E-40C8-8891-74AA6DA1011C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F5CA3D-EB1E-40C8-8891-74AA6DA1011C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F5CA3D-EB1E-40C8-8891-74AA6DA1011C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F5CA3D-EB1E-40C8-8891-74AA6DA1011C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

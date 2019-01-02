@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using JasonState.Impls;
-using JasonState.Interfaces;
+﻿using JasonState;
+using Microsoft.Extensions.DependencyInjection;
 using TestClient.Impls;
 using TestClient.Interfaces;
 
@@ -32,10 +31,8 @@ namespace TestClient.DI
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection
-                .AddTransient<IStateMachineBuilder, StateMachineBuilder>()
-                .AddTransient<IStateMachineExecutor, StateMachineExecutor>()
-                .AddTransient<IWorker, Worker>();
+            serviceCollection.AddJasonState();
+            serviceCollection.AddTransient<IWorker, Worker>();
         }
     }
 }
