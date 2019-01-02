@@ -77,6 +77,8 @@ namespace JasonState.Impls
             string fullClassName = $"{state.Namespace}.{state.Name}";
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
+            Ensure.IsValidType(type, $"{fullClassName} can not be initiated");
+
             var baseState = (BaseState)Activator.CreateInstance(type);
 
             baseState.Name = state.Name;

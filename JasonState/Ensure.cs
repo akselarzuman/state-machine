@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JasonState.Exceptions;
 
@@ -38,6 +39,16 @@ namespace JasonState
             }
 
             throw new ParameterRequiredException(name);
+        }
+
+        public static void IsValidType(Type type, string name)
+        {
+            if (type != null)
+            {
+                return;
+            }
+
+            throw new StateNotFoundException(name);
         }
     }
 }
