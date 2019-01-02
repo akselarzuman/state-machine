@@ -45,6 +45,11 @@ namespace JasonState.Impls
 
         private BaseState CreateState(StateModel state)
         {
+            if (state == null)
+            {
+                throw new ArgumentNullException(nameof(state));
+            }
+
             string fullClassName = $"{state.Namespace}.{state.Name}";
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
 
