@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JasonState.Interfaces;
 using JasonState.Models;
@@ -10,14 +9,11 @@ namespace JasonState.Impls
     {
         public void Execute(IEnumerable<BaseState> states)
         {
-            if (states == null || !states.Any())
-            {
-                throw new ArgumentNullException(nameof(states));
-            }
+            Ensure.NotEmptyList(states, nameof(states));
 
             var state = states.First();
 
-            while (state != null && state.NextState != null)
+            while (state?.NextState != null)
             {
                 string nextStateName = string.Empty;
 
@@ -42,6 +38,8 @@ namespace JasonState.Impls
 
         private string GetNextState(NextState[] nextStates)
         {
+            Ensure.NotEmptyList(nextStates, string.Empty);
+
             foreach (var nextState in nextStates)
             {
                 string expression = ParseExpression(nextState.Condition);
@@ -57,12 +55,17 @@ namespace JasonState.Impls
             return string.Empty;
         }
 
-        private string ParseExpression(string expression) => expression
-                                                                .Replace("&&", "AND")
-                                                                .Replace("&", "AND")
-                                                                .Replace("|", "OR")
-                                                                .Replace("||", "OR")
-                                                                .Replace("!=", "<>")
-                                                                .Replace("==", "=");
+        private string ParseExpression(string expression)
+        {
+            Ensure.NotNullOrEmptyString(expression, nameof(expression));
+
+            return expression
+                         .Replace("&&", "AND")
+                         .Replace("&", "AND")
+                         .Replace("|", "OR")
+                         .Replace("||", "OR")
+                         .Replace("!=", "<>")
+                         .Replace("==", "=");
+        }
     }
 }

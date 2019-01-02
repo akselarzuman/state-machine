@@ -1,0 +1,62 @@
+﻿{
+  "States": [
+    {
+      "Namespace": "TestClient.Impls.States",
+      "Name": "InitialState",
+      "NextState": [
+        {
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"aksel@test.com\")",
+          "State": "ValidatePaymentState"
+        },
+        {
+          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"test@test.com\")",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "ErrorState"
+    },
+    {
+      "Namespace": "TestClient.Impls.States",
+      "Name": "ValidatePaymentState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "ExecutePaymentState"
+        },
+        {
+          "Condition": "False",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "ErrorState"
+    },
+    {
+      "Namespace": "TestClient.Impls.States",
+      "Name": "ExecutePaymentState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "FinalState"
+    },
+    {
+      "Namespace": "TestClient.Impls.States",
+      "Name": "ErrorState",
+      "NextState": [
+        {
+          "Condition": "True",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": null
+    },
+    {
+      "Namespace": "TestClient.Impls.States",
+      "Name": "FinalState",
+      "NextState": null,
+      "ErrorState": null
+    }
+  ]
+}

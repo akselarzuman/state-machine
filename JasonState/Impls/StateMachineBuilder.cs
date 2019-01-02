@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using JasonState.Exceptions;
 using JasonState.Interfaces;
 using JasonState.Models;
 using Newtonsoft.Json;
@@ -20,37 +21,25 @@ namespace JasonState.Impls
 
         public IEnumerable<BaseState> BuildMachine(string path)
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
+            Ensure.NotNullOrEmptyString(path, nameof(path));
 
             StateMachineModel stateMachine = Load(path);
 
-            if (stateMachine?.States == null || !stateMachine.States.Any())
-            {
-                return null;
-            }
+            Ensure.NotEmptyList(stateMachine?.States, string.Empty);
 
             return stateMachine.States.Select(CreateState).ToList();
         }
 
         public void AddToContext(Type type)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            Ensure.NotNull(type, nameof(type));
 
             StateMachineContext.Context.Imports.AddType(type, type.Name);
         }
 
         public void AddToContext(IEnumerable<Type> types)
         {
-            if (types == null || !types.Any())
-            {
-                throw new ArgumentNullException(nameof(types));
-            }
+            Ensure.NotEmptyList(types, nameof(types));
 
             foreach (var type in types)
             {
@@ -60,25 +49,30 @@ namespace JasonState.Impls
 
         private StateMachineModel Load(string path)
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
+            Ensure.NotNullOrEmptyString(path, nameof(path));
 
             using (var file = File.OpenText(path))
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
 
-                return (StateMachineModel)jsonSerializer.Deserialize(file, typeof(StateMachineModel));
+                try
+                {
+                    return (StateMachineModel)jsonSerializer.Deserialize(file, typeof(StateMachineModel));
+                }
+                catch (JsonReaderException ex)
+                {
+                    throw new InvalidJsonException("Given Json is in incorrect format.", ex);
+                }
+                catch
+                {
+                    throw;
+                }
             }
         }
 
         private BaseState CreateState(StateModel state)
         {
-            if (state == null)
-            {
-                throw new ArgumentNullException(nameof(state));
-            }
+            Ensure.NotNull(state, nameof(state));
 
             string fullClassName = $"{state.Namespace}.{state.Name}";
             Type type = Type.GetType($"{fullClassName},{assemblyName}");
