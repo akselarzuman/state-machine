@@ -19,6 +19,11 @@ namespace JasonState.Impls
             assemblyName = Assembly.GetEntryAssembly().GetName().Name;
         }
 
+        public StateMachineBuilder(IAssemblyProvider assemblyProvider)
+        {
+            assemblyName = assemblyProvider.GetEntryAssembly().GetName().Name;
+        }
+
         public IEnumerable<BaseState> BuildMachine(string path)
         {
             Ensure.NotNullOrEmptyString(path, nameof(path));

@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using JasonState.Exceptions;
+using JasonState.Tests.Mocks;
 using Xunit;
 
 namespace JasonState.Tests.StateMachineBuilder
@@ -11,7 +14,7 @@ namespace JasonState.Tests.StateMachineBuilder
 
         public BuildMachineTests()
         {
-            _stateMachineBuilder = new Impls.StateMachineBuilder();
+            _stateMachineBuilder = new Impls.StateMachineBuilder(new MockAssemblyProvider());
         }
 
         [Fact]
@@ -41,15 +44,15 @@ namespace JasonState.Tests.StateMachineBuilder
             Assert.Throws<StateNotFoundException>(() => _stateMachineBuilder.BuildMachine(path));
         }
 
-        //[Fact]
-        //public void Should_Build_Machine()
-        //{
-        //    var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/StateMachine.json");
-        //    var machine = _stateMachineBuilder.BuildMachine(path);
+        [Fact]
+        public void Should_Build_Machine()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/StateMachine.json");
+            var machine = _stateMachineBuilder.BuildMachine(path);
 
-        //    Assert.NotNull(machine);
-        //    Assert.NotEmpty(machine);
-        //    Assert.Single(machine);
-        //}
+            Assert.NotNull(machine);
+            Assert.NotEmpty(machine);
+            Assert.Single(machine);
+        }
     }
 }

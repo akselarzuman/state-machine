@@ -1,7 +1,7 @@
 ﻿using System;
 using JasonState.Models;
 
-namespace JasonState.Tests.MockStates
+namespace JasonState.Tests.Mocks.States
 {
     internal class InitialState : BaseState
     {
