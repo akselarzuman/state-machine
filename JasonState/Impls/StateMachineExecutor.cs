@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JasonState.Interfaces;
 using JasonState.Models;
@@ -13,27 +14,40 @@ namespace JasonState.Impls
 
             var state = states.First();
 
-            while (state?.NextState != null)
+            try
             {
-                string nextStateName = string.Empty;
-
-                try
+                while (state?.NextState != null)
                 {
-                    state.Execute();
+                    string nextStateName;
+                    try
+                    {
+                        state.Execute();
 
-                    nextStateName = GetNextState(state.NextState);
-                }
-                catch
-                {
-                    nextStateName = state.ErrorState;
+                        nextStateName = GetNextState(state.NextState);
+                    }
+                    catch
+                    {
+                        nextStateName = state.ErrorState;
+                    }
+
+                    state = string.IsNullOrEmpty(nextStateName)
+                        ? null
+                        : states.First(m => m.Name == nextStateName);
                 }
 
-                state = string.IsNullOrEmpty(nextStateName)
-                            ? null
-                            : states.First(m => m.Name == nextStateName);
+                state?.Execute();
             }
+            catch
+            {
+                string nextStateName = state.ErrorState;
 
-            state?.Execute();
+                if (!string.IsNullOrEmpty(nextStateName))
+                {
+                    state = states?.FirstOrDefault(m => m.Name == nextStateName);
+                    
+                    state?.Execute();
+                }
+            }
         }
 
         private string GetNextState(NextState[] nextStates)
@@ -60,12 +74,12 @@ namespace JasonState.Impls
             Ensure.NotNullOrEmptyString(expression, nameof(expression));
 
             return expression
-                         .Replace("&&", "AND")
-                         .Replace("&", "AND")
-                         .Replace("|", "OR")
-                         .Replace("||", "OR")
-                         .Replace("!=", "<>")
-                         .Replace("==", "=");
+                .Replace("&&", "AND")
+                .Replace("&", "AND")
+                .Replace("|", "OR")
+                .Replace("||", "OR")
+                .Replace("!=", "<>")
+                .Replace("==", "=");
         }
     }
 }
