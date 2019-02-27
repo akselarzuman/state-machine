@@ -2,7 +2,7 @@
   "States": [
     {
       "Namespace": "JasonState.Tests.Mocks.States",
-      "Name": "InitialState",
+      "Name": "NotImplementedState",
       "NextState": []
     }
   ]
