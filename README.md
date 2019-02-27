@@ -125,3 +125,10 @@ By referencing JasonState.Extension, register necessary dependencies to ServiceC
 ```csharp
 serviceCollection.AddJasonState();
 ```
+
+## Samples
+
+TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/TestClient)
+
+## License
+Licensed under MIT, see [LICENSE](LICENSE) for the full text.
