@@ -7,7 +7,9 @@ namespace JasonState
     {
         public static void AddJasonState(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IStateMachine, StateMachine>();
+            serviceCollection
+                .AddTransient<IAssemblyProvider, AssemblyProvider>()
+                .AddTransient<IStateMachine, StateMachine>();
         }
 
         public static void AddJasonState(this IServiceCollection serviceCollection, string assemblyName)

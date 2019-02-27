@@ -8,7 +8,7 @@ namespace JasonState.Tests.StateMachine
 {
     public class AddToContextTests
     {
-        private readonly IStateMachine _stateMachine = new JasonState.StateMachine();
+        private readonly IStateMachine _stateMachine = new JasonState.StateMachine(new AssemblyProvider());
 
         [Fact]
         public void Should_Add_Type_To_Context()

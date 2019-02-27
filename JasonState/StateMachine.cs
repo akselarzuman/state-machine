@@ -14,11 +14,6 @@ namespace JasonState
     {
         private readonly string _assemblyName;
 
-        public StateMachine()
-        {
-            _assemblyName = Assembly.GetEntryAssembly().GetName().Name;
-        }
-
         public StateMachine(string assemblyName)
         {
             _assemblyName = assemblyName;
