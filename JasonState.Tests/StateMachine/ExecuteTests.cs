@@ -1,25 +1,20 @@
-using System;
 using System.Collections.Generic;
 using JasonState.Exceptions;
+using JasonState.Interfaces;
 using JasonState.Models;
 using JasonState.Tests.Mocks.States;
 using Xunit;
 
-namespace JasonState.Tests.StateMachineExecutor
+namespace JasonState.Tests.StateMachine
 {
     public class ExecuteTests
     {
-        private readonly Impls.StateMachineExecutor _stateMachineExecutor;
-
-        public ExecuteTests()
-        {
-            _stateMachineExecutor = new Impls.StateMachineExecutor();
-        }
+        private readonly IStateMachine _stateMachine = new JasonState.StateMachine();
 
         [Fact]
         public void Should_Throw_ParameterRequiredException()
         {
-            Assert.Throws<ParameterRequiredException>(() => _stateMachineExecutor.Execute(null as List<BaseState>));
+            Assert.Throws<ParameterRequiredException>(() => _stateMachine.Execute(null as List<BaseState>));
         }
 
 //        [Fact]
@@ -41,7 +36,7 @@ namespace JasonState.Tests.StateMachineExecutor
                 new TestState()
             };
             
-            _stateMachineExecutor.Execute(states);
+            _stateMachine.Execute(states);
         }
         
         [Fact]
@@ -53,9 +48,7 @@ namespace JasonState.Tests.StateMachineExecutor
                 new ErrorState()
             };
             
-            _stateMachineExecutor.Execute(states);
+            _stateMachine.Execute(states);
         }
-        
-        
     }
 }

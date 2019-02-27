@@ -9,29 +9,27 @@ namespace TestClient.Impls
 {
     public class Worker : IWorker
     {
-        private readonly IStateMachineBuilder _stateMachineBuilder;
-        private readonly IStateMachineExecutor _stateMachineExecutor;
+        private readonly IStateMachine _stateMachine;
 
-        public Worker(IStateMachineBuilder stateMachineBuilder, IStateMachineExecutor stateMachineExecutor)
+        public Worker(IStateMachine stateMachine)
         {
-            _stateMachineBuilder = stateMachineBuilder;
-            _stateMachineExecutor = stateMachineExecutor;
+            _stateMachine = stateMachine;
         }
 
         public IEnumerable<BaseState> BuildStateMachine()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/StateMachine.json");
-            return _stateMachineBuilder.BuildMachine(path);
+            return _stateMachine.BuildMachine(path);
         }
 
         public void AddToContext(Type type)
         {
-            _stateMachineBuilder.AddToContext(type);
+            _stateMachine.AddToContext(type);
         }
 
         public void Execute(IEnumerable<BaseState> machine)
         {
-            _stateMachineExecutor.Execute(machine);
+            _stateMachine.Execute(machine);
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using JasonState.Interfaces;
 
-namespace JasonState.Impls
+namespace JasonState
 {
     public class AssemblyProvider : IAssemblyProvider
     {

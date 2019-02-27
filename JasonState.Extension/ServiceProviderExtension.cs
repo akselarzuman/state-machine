@@ -1,5 +1,4 @@
-﻿using JasonState.Impls;
-using JasonState.Interfaces;
+﻿using JasonState.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JasonState
@@ -8,9 +7,12 @@ namespace JasonState
     {
         public static void AddJasonState(this IServiceCollection serviceCollection)
         {
-            serviceCollection
-                .AddTransient<IStateMachineBuilder, StateMachineBuilder>()
-                .AddTransient<IStateMachineExecutor, StateMachineExecutor>();
+            serviceCollection.AddTransient<IStateMachine, StateMachine>();
+        }
+
+        public static void AddJasonState(this IServiceCollection serviceCollection, string assemblyName)
+        {
+            serviceCollection.AddTransient<IStateMachine>(m => new StateMachine(assemblyName));
         }
     }
 }
