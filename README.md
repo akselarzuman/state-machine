@@ -11,4 +11,4 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 
 #### Usage
 First you need to provide a JSON file.
-This JSON file must contain a **States** array. This array should have ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/JasonState/Models/BaseState.cs) objects.
+This JSON file must contain a **States** array. This array should have ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) objects.
