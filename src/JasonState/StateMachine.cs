@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using EnsureDotnet;
 using JasonState.Exceptions;
 using JasonState.Interfaces;
 using JasonState.Models;
@@ -26,25 +26,25 @@ namespace JasonState
 
         public IEnumerable<BaseState> BuildMachine(string path)
         {
-            Ensure.NotNullOrEmptyString(path, nameof(path));
+            Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
             StateMachineModel stateMachine = Load(path);
 
-            Ensure.NotEmptyList(stateMachine?.States, string.Empty);
+            Ensure.ArgumentNotNullOrEmptyEnumerable(stateMachine?.States, string.Empty);
 
             return stateMachine.States.Select(CreateState).ToList();
         }
 
         public void AddToContext(Type type)
         {
-            Ensure.NotNull(type, nameof(type));
+            Ensure.ArgumentNotNull(type, nameof(type));
 
             StateMachineContext.Context.Imports.AddType(type, type.Name);
         }
 
         public void AddToContext(IEnumerable<Type> types)
         {
-            Ensure.NotEmptyList(types, nameof(types));
+            Ensure.ArgumentNotNullOrEmptyEnumerable(types, nameof(types));
 
             foreach (var type in types)
             {
@@ -54,7 +54,7 @@ namespace JasonState
 
         public void Execute(IEnumerable<BaseState> states)
         {
-            Ensure.NotEmptyList(states, nameof(states));
+            Ensure.ArgumentNotNullOrEmptyEnumerable(states, nameof(states));
 
             var state = states.First();
 
@@ -87,7 +87,7 @@ namespace JasonState
 
         private StateMachineModel Load(string path)
         {
-            Ensure.NotNullOrEmptyString(path, nameof(path));
+            Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
             using (var file = File.OpenText(path))
             {
@@ -110,12 +110,12 @@ namespace JasonState
 
         private BaseState CreateState(StateModel state)
         {
-            Ensure.NotNull(state, nameof(state));
+            Ensure.ArgumentNotNull(state, nameof(state));
 
             var fullClassName = $"{state.Namespace}.{state.Name}";
             var type = Type.GetType($"{fullClassName},{_assemblyName}");
 
-            Ensure.IsValidType(type, $"{fullClassName} can not be initiated");
+            Ensure.ArgumentNotNull(type, $"{fullClassName} can not be initiated");
 
             var baseState = (BaseState) Activator.CreateInstance(type);
 
@@ -129,7 +129,7 @@ namespace JasonState
         
         private string GetNextState(NextState[] nextStates)
         {
-            Ensure.NotEmptyList(nextStates, string.Empty);
+            Ensure.ArgumentNotNullOrEmptyEnumerable(nextStates, string.Empty);
 
             foreach (var nextState in nextStates)
             {
@@ -147,7 +147,7 @@ namespace JasonState
 
         private string ParseExpression(string expression)
         {
-            Ensure.NotNullOrEmptyString(expression, nameof(expression));
+            Ensure.ArgumentNotNullOrEmptyString(expression, nameof(expression));
 
             return expression
                         .Replace("&&", "AND")
