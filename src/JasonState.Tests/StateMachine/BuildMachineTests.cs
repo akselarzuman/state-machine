@@ -15,10 +15,15 @@ namespace JasonState.Tests.StateMachine
         private readonly IStateMachine _stateMachine = new JasonState.StateMachine(new MockAssemblyProvider());
 
         [Fact]
-        public void Should_Throw_ParameterRequiredException()
+        public void Should_Throw_ArgumentException_When_Path_IsEmpty()
         {
-            Assert.Throws<ParameterRequiredException>(() => _stateMachine.BuildMachine(null));
-            Assert.Throws<ParameterRequiredException>(() => _stateMachine.BuildMachine(string.Empty));
+            Assert.Throws<ArgumentException>(() => _stateMachine.BuildMachine(string.Empty));
+        }
+        
+        [Fact]
+        public void Should_Throw_ArgumentNullException_When_Path_IsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => _stateMachine.BuildMachine(null));
         }
 
         [Fact]
@@ -35,10 +40,10 @@ namespace JasonState.Tests.StateMachine
         }
 
         [Fact]
-        public void Should_Throw_StateNotFoundException()
+        public void Should_Throw_ArgumentNullException()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/InvalidStates.json");
-            Assert.Throws<StateNotFoundException>(() => _stateMachine.BuildMachine(path));
+            Assert.Throws<ArgumentNullException>(() => _stateMachine.BuildMachine(path));
         }
 
         [Fact]

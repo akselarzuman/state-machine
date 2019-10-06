@@ -13,9 +13,9 @@ namespace JasonState.Tests.StateMachine
         private readonly IStateMachine _stateMachine = new JasonState.StateMachine(new AssemblyProvider());
 
         [Fact]
-        public void Should_Throw_ParameterRequiredException()
+        public void Should_Throw_ArgumentNullException()
         {
-            Assert.Throws<ParameterRequiredException>(() => _stateMachine.Execute(null as List<BaseState>));
+            Assert.Throws<ArgumentNullException>(() => _stateMachine.Execute(null as List<BaseState>));
         }
 
         [Fact]
