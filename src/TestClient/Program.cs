@@ -9,10 +9,13 @@ namespace TestClient
         static void Main(string[] args)
         {
             DependencyFactory.Instance.RegisterDependencies();
-            var worker = DependencyFactory.Instance.Resolve<IWorker>();
+
+            var testModel = new TestClientModel();
+
+            var worker = DependencyFactory.Instance.Resolve<IWorker<TestClientModel>>();
             var machine = worker.BuildStateMachine();
             worker.AddToContext(typeof(TestClientModel));
-            worker.Execute(machine);
+            worker.Execute(machine, testModel);
 
             System.Console.ReadLine();
         }

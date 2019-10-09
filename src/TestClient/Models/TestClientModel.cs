@@ -1,16 +1,16 @@
 ﻿namespace TestClient.Models
 {
-    public static class TestClientModel
+    public class TestClientModel
     {
-        public static string FromEmail { get; set; }
+        public string FromEmail { get; set; }
 
-        public static string ToEmail { get; set; }
+        public string ToEmail { get; set; }
 
-        public static long CreditCardNumber { get; set; }
+        public long CreditCardNumber { get; set; }
 
-        public static string CardHolderName { get; set; }
+        public string CardHolderName { get; set; }
 
-        public static decimal Amount { get; set; }
+        public decimal Amount { get; set; }
 
     }
 }

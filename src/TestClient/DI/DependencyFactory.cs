@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TestClient.Impls;
 using TestClient.Interfaces;
+using TestClient.Models;
 
 namespace TestClient.DI
 {
@@ -11,7 +12,7 @@ namespace TestClient.DI
 
         private ServiceProvider _serviceProvider;
 
-        protected DependencyFactory()
+        private DependencyFactory()
         {
         }
 
@@ -31,8 +32,8 @@ namespace TestClient.DI
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddJasonState();
-            serviceCollection.AddTransient<IWorker, Worker>();
+            serviceCollection.AddJasonState<TestClientModel>();
+            serviceCollection.AddTransient<IWorker<TestClientModel>, Worker<TestClientModel>>();
         }
     }
 }

@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using EnsureDotnet;
 using JasonState.Exceptions;
 using JasonState.Interfaces;
 using JasonState.Models;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using Newtonsoft.Json;
 
 namespace JasonState
 {
-    public class StateMachine : IStateMachine
+    public class StateMachine<T> : IStateMachine<T> where T : class, new()
     {
         private readonly string _assemblyName;
 
@@ -24,7 +27,7 @@ namespace JasonState
             _assemblyName = assemblyProvider.GetEntryAssembly().GetName().Name;
         }
 
-        public IEnumerable<BaseState> BuildMachine(string path)
+        public IEnumerable<BaseState<T>> BuildMachine(string path)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
@@ -52,7 +55,7 @@ namespace JasonState
             }
         }
 
-        public void Execute(IEnumerable<BaseState> states)
+        public void Execute(IEnumerable<BaseState<T>> states, T context)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(states, nameof(states));
 
@@ -62,17 +65,17 @@ namespace JasonState
             {
                 while (state?.NextState != null)
                 {
-                    state.Execute();
+                    state.Execute(context);
                     string nextStateName = GetNextState(state.NextState);
 
                     state = string.IsNullOrEmpty(nextStateName)
-                                ? null
-                                : states.First(m => m.Name == nextStateName);
+                        ? null
+                        : states.First(m => m.Name == nextStateName);
                 }
 
-                state?.Execute();
+                state?.Execute(context);
             }
-            catch
+            catch(Exception ex)
             {
                 string nextStateName = state.ErrorState;
 
@@ -80,7 +83,7 @@ namespace JasonState
                 {
                     state = states.FirstOrDefault(m => m.Name == nextStateName);
 
-                    state?.Execute();
+                    state?.Execute(context);
                 }
             }
         }
@@ -108,7 +111,7 @@ namespace JasonState
             }
         }
 
-        private BaseState CreateState(StateModel state)
+        private BaseState<T> CreateState(StateModel state)
         {
             Ensure.ArgumentNotNull(state, nameof(state));
 
@@ -117,7 +120,7 @@ namespace JasonState
 
             Ensure.ArgumentNotNull(type, $"{fullClassName} can not be initiated");
 
-            var baseState = (BaseState) Activator.CreateInstance(type);
+            var baseState = (BaseState<T>) Activator.CreateInstance(type);
 
             baseState.Name = state.Name;
             baseState.Namespace = state.Namespace;
@@ -126,13 +129,23 @@ namespace JasonState
 
             return baseState;
         }
-        
+
         private string GetNextState(NextState[] nextStates)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(nextStates, string.Empty);
 
             foreach (var nextState in nextStates)
             {
+//                string expression = "Models.TestClientModel.FromEmail == \"aksel@test.com\"";
+//                ScriptOptions.Default.AddReferences(new List<Assembly>
+//                {
+//                    Assembly.GetEntryAssembly()
+//                });
+//                bool isTrue = CSharpScript.EvaluateAsync<bool>(expression, ScriptOptions.Default.WithReferences(new List<Assembly>
+//                {
+//                    Assembly.GetEntryAssembly()
+//                })).GetAwaiter().GetResult();
+                
                 string expression = ParseExpression(nextState.Condition);
                 bool isNextState = StateMachineContext.Context.CompileGeneric<bool>(expression).Evaluate();
 
@@ -150,12 +163,12 @@ namespace JasonState
             Ensure.ArgumentNotNullOrEmptyString(expression, nameof(expression));
 
             return expression
-                        .Replace("&&", "AND")
-                        .Replace("&", "AND")
-                        .Replace("|", "OR")
-                        .Replace("||", "OR")
-                        .Replace("!=", "<>")
-                        .Replace("==", "=");
+                .Replace("&&", "AND")
+                .Replace("&", "AND")
+                .Replace("|", "OR")
+                .Replace("||", "OR")
+                .Replace("!=", "<>")
+                .Replace("==", "=");
         }
     }
 }

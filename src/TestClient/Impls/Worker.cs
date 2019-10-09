@@ -7,16 +7,16 @@ using TestClient.Interfaces;
 
 namespace TestClient.Impls
 {
-    public class Worker : IWorker
+    public class Worker<T> : IWorker<T> where T : class, new()
     {
-        private readonly IStateMachine _stateMachine;
+        private readonly IStateMachine<T> _stateMachine;
 
-        public Worker(IStateMachine stateMachine)
+        public Worker(IStateMachine<T> stateMachine)
         {
             _stateMachine = stateMachine;
         }
 
-        public IEnumerable<BaseState> BuildStateMachine()
+        public IEnumerable<BaseState<T>> BuildStateMachine()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Files/StateMachine.json");
             return _stateMachine.BuildMachine(path);
@@ -27,9 +27,9 @@ namespace TestClient.Impls
             _stateMachine.AddToContext(type);
         }
 
-        public void Execute(IEnumerable<BaseState> machine)
+        public void Execute(IEnumerable<BaseState<T>> machine, T context)
         {
-            _stateMachine.Execute(machine);
+            _stateMachine.Execute(machine, context);
         }
     }
 }

@@ -4,12 +4,12 @@ using JasonState.Models;
 
 namespace TestClient.Interfaces
 {
-    public interface IWorker
+    public interface IWorker<T>  where T : class, new()
     {        
-        IEnumerable<BaseState> BuildStateMachine();
+        IEnumerable<BaseState<T>> BuildStateMachine();
 
         void AddToContext(Type type);
 
-        void Execute(IEnumerable<BaseState> machine);
+        void Execute(IEnumerable<BaseState<T>> machine, T context);
     }
 }
