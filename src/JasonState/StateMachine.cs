@@ -131,18 +131,5 @@ namespace JasonState
 
             return string.Empty;
         }
-
-        private string ParseExpression(string expression)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(expression, nameof(expression));
-
-            return expression
-                .Replace("&&", "AND")
-                .Replace("&", "AND")
-                .Replace("|", "OR")
-                .Replace("||", "OR")
-                .Replace("!=", "<>")
-                .Replace("==", "=");
-        }
     }
 }
