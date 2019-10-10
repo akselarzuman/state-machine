@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JasonState.Extension\JasonState.Extension.csproj" />
+    <ProjectReference Include="..\..\src\JasonState.Extension\JasonState.Extension.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Files\StateMachine.json">

@@ -15,8 +15,6 @@ namespace TestClient
             var worker = DependencyFactory.Instance.Resolve<IWorker<TestClientModel>>();
             var machine = worker.BuildStateMachine();
             worker.Execute(machine, testModel);
-
-            System.Console.ReadLine();
         }
     }
 }
