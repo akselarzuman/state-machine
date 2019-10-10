@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JasonState\JasonState.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Files\InvalidStates.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -26,6 +22,10 @@
     <None Update="Files\Wrong.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\JasonState\JasonState.csproj" />
   </ItemGroup>
 
 </Project>
