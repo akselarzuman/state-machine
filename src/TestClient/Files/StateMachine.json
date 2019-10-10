@@ -5,11 +5,11 @@
       "Name": "InitialState",
       "NextState": [
         {
-          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"aksel@test.com\")",
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"aksel@test.com\")",
           "State": "ValidatePaymentState"
         },
         {
-          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"test@test.com\")",
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"test@test.com\")",
           "State": "FinalState"
         }
       ],
@@ -20,11 +20,11 @@
       "Name": "ValidatePaymentState",
       "NextState": [
         {
-          "Condition": "True",
+          "Condition": "true",
           "State": "ExecutePaymentState"
         },
         {
-          "Condition": "False",
+          "Condition": "false",
           "State": "FinalState"
         }
       ],
@@ -35,7 +35,7 @@
       "Name": "ExecutePaymentState",
       "NextState": [
         {
-          "Condition": "True",
+          "Condition": "true",
           "State": "FinalState"
         }
       ],
@@ -46,7 +46,7 @@
       "Name": "ErrorState",
       "NextState": [
         {
-          "Condition": "True",
+          "Condition": "true",
           "State": "FinalState"
         }
       ],
