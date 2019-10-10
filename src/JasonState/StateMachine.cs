@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using EnsureDotnet;
 using JasonState.Exceptions;
 using JasonState.Interfaces;
@@ -38,23 +37,6 @@ namespace JasonState
             return stateMachine.States.Select(CreateState).ToList();
         }
 
-        public void AddToContext(Type type)
-        {
-            Ensure.ArgumentNotNull(type, nameof(type));
-
-            StateMachineContext.Context.Imports.AddType(type, type.Name);
-        }
-
-        public void AddToContext(IEnumerable<Type> types)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(types, nameof(types));
-
-            foreach (var type in types)
-            {
-                AddToContext(type);
-            }
-        }
-
         public void Execute(IEnumerable<BaseState<T>> states, T context)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(states, nameof(states));
@@ -66,7 +48,7 @@ namespace JasonState
                 while (state?.NextState != null)
                 {
                     state.Execute(context);
-                    string nextStateName = GetNextState(state.NextState);
+                    string nextStateName = GetNextState(state.NextState, context);
 
                     state = string.IsNullOrEmpty(nextStateName)
                         ? null
@@ -75,7 +57,7 @@ namespace JasonState
 
                 state?.Execute(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string nextStateName = state.ErrorState;
 
@@ -130,24 +112,16 @@ namespace JasonState
             return baseState;
         }
 
-        private string GetNextState(NextState[] nextStates)
+        private string GetNextState(NextState[] nextStates, T context)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(nextStates, string.Empty);
 
-            foreach (var nextState in nextStates)
+            foreach (NextState nextState in nextStates)
             {
-//                string expression = "Models.TestClientModel.FromEmail == \"aksel@test.com\"";
-//                ScriptOptions.Default.AddReferences(new List<Assembly>
-//                {
-//                    Assembly.GetEntryAssembly()
-//                });
-//                bool isTrue = CSharpScript.EvaluateAsync<bool>(expression, ScriptOptions.Default.WithReferences(new List<Assembly>
-//                {
-//                    Assembly.GetEntryAssembly()
-//                })).GetAwaiter().GetResult();
-                
-                string expression = ParseExpression(nextState.Condition);
-                bool isNextState = StateMachineContext.Context.CompileGeneric<bool>(expression).Evaluate();
+                ScriptRunner<bool> script =
+                    CSharpScript.Create<bool>(nextState.Condition, globalsType: typeof(T))
+                        .CreateDelegate();
+                bool isNextState = script(context).GetAwaiter().GetResult();
 
                 if (isNextState)
                 {
