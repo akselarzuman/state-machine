@@ -8,10 +8,6 @@ namespace JasonState.Interfaces
     {
         IEnumerable<BaseState<T>> BuildMachine(string path);
 
-        void AddToContext(Type type);
-
-        void AddToContext(IEnumerable<Type> types);
-
         void Execute(IEnumerable<BaseState<T>> states, T context);
     }
 }
