@@ -22,11 +22,6 @@ namespace TestClient.Impls
             return _stateMachine.BuildMachine(path);
         }
 
-        public void AddToContext(Type type)
-        {
-            _stateMachine.AddToContext(type);
-        }
-
         public void Execute(IEnumerable<BaseState<T>> machine, T context)
         {
             _stateMachine.Execute(machine, context);
