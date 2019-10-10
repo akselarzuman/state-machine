@@ -8,8 +8,6 @@ namespace TestClient.Interfaces
     {        
         IEnumerable<BaseState<T>> BuildStateMachine();
 
-        void AddToContext(Type type);
-
         void Execute(IEnumerable<BaseState<T>> machine, T context);
     }
 }
