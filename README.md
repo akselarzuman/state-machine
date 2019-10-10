@@ -6,6 +6,7 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 
 ## Supported Platforms
 
+* [.NET Standard 2.1](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 * [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
@@ -129,7 +130,7 @@ serviceCollection.AddJasonState<TestStateContext>();
 
 ## Samples
 
-TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/TestClient)
+TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/TestClient)
 
 ## License
 Licensed under MIT, see [LICENSE](LICENSE) for the full text.
