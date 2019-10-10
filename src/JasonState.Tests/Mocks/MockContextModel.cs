@@ -1,6 +1,6 @@
 namespace JasonState.Tests.Mocks
 {
-    public class MockModel
+    public class MockContextModel
     {
         
     }

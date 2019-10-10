@@ -2,7 +2,7 @@ using JasonState.Models;
 
 namespace JasonState.Tests.Mocks.States
 {
-    public class TestStateWithErrorState : BaseState
+    public class TestStateWithErrorState : BaseState<MockContextModel>
     {
         public TestStateWithErrorState()
         {
@@ -16,7 +16,7 @@ namespace JasonState.Tests.Mocks.States
             };
         }
         
-        public override void Execute()
+        public override void Execute(MockContextModel context)
         {
             throw new System.NotImplementedException();
         }

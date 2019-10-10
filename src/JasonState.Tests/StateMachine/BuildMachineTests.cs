@@ -12,7 +12,7 @@ namespace JasonState.Tests.StateMachine
 {
     public class BuildMachineTests
     {
-        private readonly IStateMachine _stateMachine = new JasonState.StateMachine(new MockAssemblyProvider());
+        private readonly IStateMachine<MockContextModel> _stateMachine = new JasonState.StateMachine<MockContextModel>(new MockAssemblyProvider());
 
         [Fact]
         public void Should_Throw_ArgumentException_When_Path_IsEmpty()
