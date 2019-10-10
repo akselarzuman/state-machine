@@ -6,6 +6,7 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 
 ## Supported Platforms
 
+* [.NET Standard 2.1](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 * [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
@@ -19,7 +20,7 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 3. [Usage](https://github.com/akselarzuman/state-machine#usage)
     - [Json File](https://github.com/akselarzuman/state-machine#json)
     - [State Implementation](https://github.com/akselarzuman/state-machine#state-implementation)
-    - [Add Objects to the Context](https://github.com/akselarzuman/state-machine#add-objects-to-the-context)
+    - [State Context](https://github.com/akselarzuman/state-machine#state-context)
     - [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/akselarzuman/state-machine#microsoftextensionsdependencyinjection-initialization)
 4. [License](https://github.com/akselarzuman/state-machine#license)
 
@@ -36,7 +37,7 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 First you need to provide a valid JSON file.
 This JSON file must contain a **States** array. This array should have ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) objects.
 * **Namespace**: namespace of your state
-* **Name**: Just the name of your file
+* **Name**: Just the name of your state file
 * **NextState**: ![Next State](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/NextState.cs) array contains ![Next State](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/NextState.cs) objects
   * __Condition__: It's actually an if condition. Instead of using '==', use .Equals() method
   * __State__: State is next state's name. No need to provide namespace
@@ -52,11 +53,11 @@ An example of a valid JSON file can be found throug ![here](https://github.com/a
       "Name": "InitialState",
       "NextState": [
         {
-          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"aksel@test.com\")",
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"aksel@test.com\")",
           "State": "ValidatePaymentState"
         },
         {
-          "Condition": "TestClientModel.FromEmail != null && TestClientModel.FromEmail.Equals(\"test@test.com\")",
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"test@test.com\")",
           "State": "FinalState"
         }
       ],
@@ -67,7 +68,7 @@ An example of a valid JSON file can be found throug ![here](https://github.com/a
       "Name": "ErrorState",
       "NextState": [
         {
-          "Condition": "True",
+          "Condition": "true",
           "State": "FinalState"
         }
       ],
@@ -88,33 +89,34 @@ An example of a valid JSON file can be found throug ![here](https://github.com/a
 States must inherit from ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) and implement **Execute** method. You can use any dependency injection frameworks for construction injections. It will not break anything.
 
 ```csharp
-public class InitialState : BaseState
+public class InitialState : BaseState<TestStateContext>
 {
-    public override void Execute()
+    public override void Execute(TestStateContext context)
     {
+      // do the magic
     }
 }
 ```
 
-### Add Objects to the Context
+### State Context
 
-Jason State allows you to add any kind of object to the context. You can do it by adding your **type** to the context. Your class and your properties must be **static**.
+Jason State allows you to add any kind of object to the context. Everything you need during the state execution should be in the context.
 
 ```csharp
-public static class TestClientModel
+public class TestStateContext
 {
-    public static long CreditCardNumber { get; set; }
+    public long CreditCardNumber { get; set; }
 
-    public static string CardHolderName { get; set; }
+    public string CardHolderName { get; set; }
 
-    public static decimal Amount { get; set; }
+    public decimal Amount { get; set; }
 }
 
-public class InitialState : BaseState
+public class InitialState : BaseState<TestStateContext>
 {
-    public override void Execute()
+    public override void Execute(TestStateContext context)
     {
-        TestClientModel.CreditCardNumber = "4545454545454545";
+        context.CreditCardNumber = "4545454545454545";
     }
 }
 ```
@@ -123,12 +125,12 @@ public class InitialState : BaseState
 
 By referencing JasonState.Extension, register necessary dependencies to ServiceCollection as follows
 ```csharp
-serviceCollection.AddJasonState();
+serviceCollection.AddJasonState<TestStateContext>();
 ```
 
 ## Samples
 
-TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/TestClient)
+TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/TestClient)
 
 ## License
 Licensed under MIT, see [LICENSE](LICENSE) for the full text.
