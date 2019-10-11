@@ -66,7 +66,7 @@ namespace JasonState
                 while (state?.NextState != null)
                 {
                     await state.ExecuteAsync(context);
-                    string nextStateName = GetNextState(state.NextState, context);
+                    string nextStateName = await GetNextStateAsync(state.NextState, context);
 
                     state = string.IsNullOrEmpty(nextStateName)
                         ? null
@@ -94,17 +94,8 @@ namespace JasonState
 
             using (var reader = new StreamReader(path))
             {
-                var jsonSerializer = new JsonSerializer();
-
-                try
-                {
-                    Task<string> json = reader.ReadToEndAsync();
-                    return json;
-                }
-                catch
-                {
-                    throw;
-                }
+                Task<string> json = reader.ReadToEndAsync();
+                return json;
             }
         }
 
@@ -127,7 +118,7 @@ namespace JasonState
             return baseState;
         }
 
-        private async Task<string> GetNextState(NextState[] nextStates, T context)
+        private async Task<string> GetNextStateAsync(NextState[] nextStates, T context)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(nextStates, string.Empty);
 
