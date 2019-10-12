@@ -10,7 +10,7 @@ namespace AsyncTestClient.Impls.States
         public override async Task ExecuteAsync(TestClientModel context)
         {
             await Console.Out.WriteLineAsync("Error will be thrown from execute payment state...");
-            throw new System.Exception();
+            throw new Exception();
         }
     }
 }
