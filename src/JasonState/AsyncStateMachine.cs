@@ -41,6 +41,8 @@ namespace JasonState
 
         private StateMachineModel Load(string json)
         {
+            Ensure.ArgumentNotNullOrEmptyString(json, nameof(json));
+
             try
             {
                 return JsonConvert.DeserializeObject<StateMachineModel>(json);
@@ -88,13 +90,13 @@ namespace JasonState
             }
         }
 
-        private Task<string> ReadFileAsync(string path)
+        private async Task<string> ReadFileAsync(string path)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
             using (var reader = new StreamReader(path))
             {
-                Task<string> json = reader.ReadToEndAsync();
+                string json = await reader.ReadToEndAsync();
                 return json;
             }
         }
