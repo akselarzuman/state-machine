@@ -39,7 +39,7 @@
           "State": "FinalState"
         }
       ],
-      "ErrorState": "FinalState"
+      "ErrorState": "ErrorState"
     },
     {
       "Namespace": "AsyncTestClient.Impls.States",
