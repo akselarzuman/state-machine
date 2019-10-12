@@ -31,8 +31,13 @@ namespace JasonState
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            string json = await ReadFileAsync(path);
-            StateMachineModel stateMachine = Load(json);
+            StateMachineModel stateMachine;
+
+            using (var reader = new StreamReader(path))
+            {
+                string json = await reader.ReadToEndAsync();
+                stateMachine = Load(json);
+            }
 
             Ensure.ArgumentNotNullOrEmptyEnumerable(stateMachine?.States, string.Empty);
 
@@ -87,17 +92,6 @@ namespace JasonState
 
                     await state?.ExecuteAsync(context);
                 }
-            }
-        }
-
-        private async Task<string> ReadFileAsync(string path)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
-
-            using (var reader = new StreamReader(path))
-            {
-                string json = await reader.ReadToEndAsync();
-                return json;
             }
         }
 
