@@ -4,6 +4,14 @@
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>JasonState</RootNamespace>
     <Version>0.0.1</Version>
+    <Authors>Aksel Arzuman</Authors>
+    <Owners>Aksel Arzuman</Owners>
+    <Description>extension for JasonState</Description>
+    <PackageProjectUrl>https://github.com/akselarzuman/state-machine</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/akselarzuman/state-machine/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/akselarzuman/ensure</RepositoryUrl>
+    <Copyright>Copyright 2019 © Aksel Arzuman</Copyright>
+    <PackageTags>state, machine, state machine, dotnet, dotnet core</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
