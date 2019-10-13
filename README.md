@@ -44,7 +44,7 @@ This JSON file must contain a **States** array. This array should have ![BaseSta
   * __State__: State is next state's name. No need to provide namespace
 * **ErrorState**: Name of your state's error state. This state will be executed only if the current state has an exception that you don't handle. Error state can be different for each state.
 
-An example of a valid JSON file can be found throug ![here](https://github.com/akselarzuman/state-machine/blob/master/src/TestClient/Files/StateMachine.json)
+An example of a valid JSON file can be found throug ![here](https://github.com/akselarzuman/state-machine/blob/master/samples/TestClient/Files/StateMachine.json)
 
 ```json
 {
@@ -87,7 +87,7 @@ An example of a valid JSON file can be found throug ![here](https://github.com/a
 
 ### State Implementation
 
-States must inherit from ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) and implement **Execute** method with your state context. You can use any dependency injection framework for construction injections. It will not break anything.
+States must inherit from ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) and implement **Execute**, or **ExecuteAsync**, method with your state context. You can use any dependency injection framework for construction injections. It will not break anything.
 
 ```csharp
 public class InitialState : BaseState<TestStateContext>
@@ -135,8 +135,9 @@ serviceCollection.AddAsyncJasonState<TestStateContext>();
 
 ## Samples
 
-TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/TestClient)
-AsyncTestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/AsyncTestClient)
+TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/samples/TestClient)
+<br />
+AsyncTestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/samples/AsyncTestClient)
 
 ## License
 Licensed under MIT, see [LICENSE](LICENSE) for the full text.
