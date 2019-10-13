@@ -9,7 +9,7 @@
     <Description>extension for JasonState</Description>
     <PackageProjectUrl>https://github.com/akselarzuman/state-machine</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/akselarzuman/state-machine/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/akselarzuman/ensure</RepositoryUrl>
+    <RepositoryUrl>https://github.com/akselarzuman/state-machine</RepositoryUrl>
     <Copyright>Copyright 2019 © Aksel Arzuman</Copyright>
     <PackageTags>state, machine, state machine, dotnet, dotnet core</PackageTags>
   </PropertyGroup>
