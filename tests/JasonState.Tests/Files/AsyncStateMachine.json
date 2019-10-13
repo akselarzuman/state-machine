@@ -1,0 +1,9 @@
+﻿{
+  "States": [
+    {
+      "Namespace": "JasonState.Tests.Mocks.AsyncStates",
+      "Name": "AsyncNotImplementedState",
+      "NextState": []
+    }
+  ]
+}

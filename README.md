@@ -29,6 +29,7 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 - No need to worry about implementing State Pattern. With Jason State, it is already implemented!
 - Because you use state pattern, your code is cleaner.
 - Let the business need change! It'll give you the flexibility to change the flow just by the JSON file you provide. No need for deployment!
+- Supports sync and async operations!
 
 ## Installation
 
@@ -39,7 +40,7 @@ This JSON file must contain a **States** array. This array should have ![BaseSta
 * **Namespace**: namespace of your state
 * **Name**: Just the name of your state file
 * **NextState**: ![Next State](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/NextState.cs) array contains ![Next State](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/NextState.cs) objects
-  * __Condition__: It's actually an if condition. Instead of using '==', use .Equals() method
+  * __Condition__: The condition for the states execution.
   * __State__: State is next state's name. No need to provide namespace
 * **ErrorState**: Name of your state's error state. This state will be executed only if the current state has an exception that you don't handle. Error state can be different for each state.
 
@@ -86,7 +87,7 @@ An example of a valid JSON file can be found throug ![here](https://github.com/a
 
 ### State Implementation
 
-States must inherit from ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) and implement **Execute** method. You can use any dependency injection frameworks for construction injections. It will not break anything.
+States must inherit from ![BaseState](https://github.com/akselarzuman/state-machine/blob/master/src/JasonState/Models/BaseState.cs) and implement **Execute** method with your state context. You can use any dependency injection framework for construction injections. It will not break anything.
 
 ```csharp
 public class InitialState : BaseState<TestStateContext>
@@ -127,10 +128,15 @@ By referencing JasonState.Extension, register necessary dependencies to ServiceC
 ```csharp
 serviceCollection.AddJasonState<TestStateContext>();
 ```
+or
+```csharp
+serviceCollection.AddAsyncJasonState<TestStateContext>();
+```
 
 ## Samples
 
 TestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/TestClient)
+AsyncTestClient can be found ![here](https://github.com/akselarzuman/state-machine/tree/master/src/samples/AsyncTestClient)
 
 ## License
 Licensed under MIT, see [LICENSE](LICENSE) for the full text.
