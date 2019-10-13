@@ -33,6 +33,25 @@ Jason State is a simple state machine implementation. It's configured by a JSON 
 
 ## Installation
 
+|       | Package |
+|---------------|----------|
+| JasonState | [![NuGet](https://img.shields.io/nuget/v/JasonState.svg)](https://www.nuget.org/packages/JasonState)    |
+| JasonState.Extension | [![NuGet](https://img.shields.io/nuget/v/JasonState.Extension.svg)](https://www.nuget.org/packages/JasonState.Extension)    |
+
+Following commands can be used to install JasonState and JasonState.Extension, run the following command in the Package Manager Console
+
+```
+dotnet add package JasonState
+dotnet add package JasonState.Extension
+```
+
+Or use `dotnet cli`
+
+```
+dotnet add package JasonState
+dotnet add package JasonState.Extension
+```
+
 ## Usage
 ### Json
 First you need to provide a valid JSON file.
