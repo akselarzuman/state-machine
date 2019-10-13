@@ -1,0 +1,62 @@
+﻿{
+  "States": [
+    {
+      "Namespace": "AsyncTestClient.Impls.States",
+      "Name": "InitialState",
+      "NextState": [
+        {
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"aksel@test.com\")",
+          "State": "ValidatePaymentState"
+        },
+        {
+          "Condition": "!string.IsNullOrEmpty(FromEmail) && FromEmail.Equals(\"test@test.com\")",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "ErrorState"
+    },
+    {
+      "Namespace": "AsyncTestClient.Impls.States",
+      "Name": "ValidatePaymentState",
+      "NextState": [
+        {
+          "Condition": "true",
+          "State": "ExecutePaymentState"
+        },
+        {
+          "Condition": "false",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "ErrorState"
+    },
+    {
+      "Namespace": "AsyncTestClient.Impls.States",
+      "Name": "ExecutePaymentState",
+      "NextState": [
+        {
+          "Condition": "true",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": "ErrorState"
+    },
+    {
+      "Namespace": "AsyncTestClient.Impls.States",
+      "Name": "ErrorState",
+      "NextState": [
+        {
+          "Condition": "true",
+          "State": "FinalState"
+        }
+      ],
+      "ErrorState": null
+    },
+    {
+      "Namespace": "AsyncTestClient.Impls.States",
+      "Name": "FinalState",
+      "NextState": null,
+      "ErrorState": null
+    }
+  ]
+}
